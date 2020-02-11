@@ -20,6 +20,22 @@ mongoose.connect(
  
 app.use(router);
 
+router.use((req, res, next) => {
+  const error = new Error('Not Found');
+  error.status = 404;
+  next(error);
+});
+
+router.use((error, req, res, next) => {
+  res.status = error.status || 500;
+  res.json({
+    error: {
+      message: error.message,
+      status: res.status
+    }
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server running at port ${port}`);
 });
