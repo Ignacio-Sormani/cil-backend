@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const Category = require('../../models/categories');
 
 const postCategories = (req, res) => {
@@ -6,7 +5,7 @@ const postCategories = (req, res) => {
   .exec()
   .then(response => {
     if (response.length > 0) {
-      res.status(400).json({
+      res.status(409).json({
         error: 'Category name already exists!'
       });
     }
@@ -35,4 +34,28 @@ const postCategories = (req, res) => {
   });
 };
 
-module.exports = { postCategories };
+const getCategories = (req, res) => {
+  Category.find()
+    .select('_id name description')
+    .exec()
+    .then(response => {
+      if (response.length > 0) {
+        res.status(200).json({
+          message: 'Categories were retrieved!',
+          data: response
+        });
+      }
+      else {
+        res.status(404).json({
+          error: 'No categories found!'
+        });
+      }
+    })
+    .catch(() => {
+      res.status(500).json({
+        error: 'Categories could not be retrieved!'
+      });
+    });
+  };
+  
+module.exports = { postCategories, getCategories };
