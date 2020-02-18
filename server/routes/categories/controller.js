@@ -56,6 +56,33 @@ const getCategories = (req, res) => {
         error: 'Categories could not be retrieved!'
       });
     });
-  };
+};
+
+const deleteCategory = (req, res) => {//add validation for categories being used in products
+  Category.findByIdAndDelete({ _id: req.params.categoryId})
+    .exec()
+    .then(response => {
+      if (response) {
+        res.status(201).json({
+          message: 'Category was deleted!',
+          data: {
+            _id: response.id,
+            name: response.name,
+            description: response.description
+          }
+        });
+      }
+      else {
+        res.status(404).json({
+          error: 'Category not found!'
+        });
+      }
+    })
+    .catch(() => {
+      res.status(500).json({ // check this status code.
+        error: 'Category could not be deleted!'
+      });
+    })
+};
   
-module.exports = { postCategories, getCategories };
+module.exports = { postCategories, getCategories, deleteCategory };
