@@ -9,6 +9,7 @@ const port = 4000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+mongoose.set('useCreateIndex', true);
 mongoose.connect(
   'mongodb+srv://CIL-ADMIN:cil2019@cil-cluster-ldtk8.gcp.mongodb.net/database?retryWrites=true&w=majority',
   {
