@@ -1,4 +1,4 @@
-const Category = require('../../models/categories');
+const Category = require('../../models/category');
 
 const postCategories = (req, res) => {
   Category.find({ name: req.body.name})

@@ -6,7 +6,8 @@ const productSchema = mongoose.Schema({
     required: true
   },
   description: {
-    type: String, required: true
+    type: String, 
+    required: true
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
