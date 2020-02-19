@@ -1,6 +1,31 @@
 const Category = require('../../models/category');
 const Product = require('../../models/product');
 
+const getProducts = (req, res) => {
+  Product.find()
+    .select('_id name description category price stock isActive')
+    .populate('category', 'name description')
+    .exec()
+    .then(response => {
+      if (response.length > 0) {
+        res.status(200).json({
+          message: 'Products were retrieved!',
+          data: response
+        });
+      }
+      else {
+        res.status(404).json({
+          error: 'No products found!'
+        });
+      }
+    })
+    .catch(() => {
+      res.status(500).json({
+        error: 'Products could not be retrieved!'
+      });
+    });
+};
+
 const postProduct = (req, res) => {
   Category.findById(req.body.category)
     .then((category) => {
@@ -33,4 +58,4 @@ const postProduct = (req, res) => {
     });
 };
 
-module.exports = postProduct;
+module.exports = { postProduct, getProducts };
