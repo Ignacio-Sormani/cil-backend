@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const categories = require('./categories')
+const auth = require('./auth');
+const categories = require('./categories');
 
+router.use('/auth', auth);
 router.use('/categories', categories);
 
 module.exports = router;

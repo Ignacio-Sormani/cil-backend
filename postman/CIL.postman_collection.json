@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "76577ee2-073d-41c6-80f2-8e1088f905c4",
+		"_postman_id": "605daf36-50b9-453b-8a48-0d26145a9671",
 		"name": "CIL",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,26 +14,6 @@
 			"name": "CATEGORIES",
 			"item": [
 				{
-					"name": "Get Categories",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/categories/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"categories",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Post Category",
 					"request": {
 						"method": "POST",
@@ -42,6 +22,11 @@
 								"key": "Content-Type",
 								"name": "Content-Type",
 								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -69,6 +54,33 @@
 					"response": []
 				},
 				{
+					"name": "Get Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:4000/categories/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"categories",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Delete Category",
 					"request": {
 						"method": "DELETE",
@@ -77,6 +89,11 @@
 								"key": "Content-Type",
 								"name": "Content-Type",
 								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -115,7 +132,82 @@
 		},
 		{
 			"name": "AUTH",
-			"item": [],
+			"item": [
+				{
+					"name": "Post User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fullName\": \"Administrador\",\n\t\"email\": \"admin@gmail.com\",\n\t\"password\": \"admin\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2458827a-839a-47a2-9829-53bd92e5c52d",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"admin@gmail.com\",\n\t\"password\": \"admin\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"protocolProfileBehavior": {}
 		}
 	],
