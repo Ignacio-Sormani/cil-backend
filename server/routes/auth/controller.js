@@ -1,5 +1,6 @@
 const User = require('../../models/user');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const postUser = (req, res) => {
   User.find({ email: req.body.email })
@@ -41,6 +42,52 @@ const postUser = (req, res) => {
         });
       }
     });
-};
+}
 
-module.exports = { postUser };
+const login = (req, res) => {
+  User.find({ email: req.body.email })
+  .exec()
+  .then(response => {
+    if (response.length === 0) {
+      return res.status(401).json({
+        error: 'Authentication failed!'
+        // we send this message so we dont give real information to the person trying to login
+        // the real error is: 'Email does not exist'
+      });
+    }
+    bcrypt.compare(req.body.password, response[0].password, (err, compareResponse) => {
+      if (err) {
+        return res.status(401).json({
+          error: 'Authentication failed!'
+        });
+      }
+      if (compareResponse) {
+        const token = jwt.sign(
+          {
+            email: response[0].email,
+            id: response[0].id
+          }, 
+          'cilkey',
+          {
+            expiresIn: "2h"
+          }
+        );
+        return res.status(200).json({
+          message: 'Authentication was successful!',
+          token
+        });
+      }
+      res.status(401).json({
+        error: 'Authentication failed!'
+        // the real error is: 'Incorrect password'
+      });
+    });
+  })
+  .catch(() => {
+    res.status(500).json({
+      error: 'Authentication failed!'
+    })
+  });
+}
+
+module.exports = { postUser, login };
