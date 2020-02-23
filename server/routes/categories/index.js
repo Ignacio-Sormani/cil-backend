@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const { postCategories, getCategories, deleteCategory } = require('./controller');
+const checkToken = require('../../middleware/check-token');
 
 router 
   .route('/')
-  .post(postCategories)
-  .get(getCategories);
+  .post(checkToken, postCategories)
+  .get(checkToken, getCategories);
 
   router
   .route('/:categoryId')
-  .delete(deleteCategory);
+  .delete(checkToken, deleteCategory);
 
 module.exports = router;
