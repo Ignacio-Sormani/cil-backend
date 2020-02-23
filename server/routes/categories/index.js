@@ -6,7 +6,7 @@ const checkToken = require('../../middleware/check-token');
 router 
   .route('/')
   .post(checkToken, postCategories)
-  .get(checkToken, getCategories);
+  .get(getCategories);
 
   router
   .route('/:categoryId')
