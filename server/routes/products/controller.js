@@ -58,4 +58,28 @@ const postProduct = (req, res) => {
     });
 };
 
-module.exports = { postProduct, getProducts };
+const modifyProduct = (req, res) => {
+  Product.findByIdAndUpdate(req.params.productId, req.body, { new: true })
+    .populate('category', 'name description')
+    .exec()
+    .then((response) => {
+      if (response) {        
+        res.status(201).json({
+          message: 'Product was modified!',
+          data: response
+        });         
+      }
+      else {
+        res.status(404).json({
+          error: 'Product not found!'
+        });
+      }
+    })
+    .catch(() => {
+    res.status(500).json({
+      error: 'Product could not be modified!'
+    });
+  });
+};
+
+module.exports = { postProduct, getProducts, modifyProduct };
