@@ -82,4 +82,27 @@ const modifyProduct = (req, res) => {
   });
 };
 
-module.exports = { postProduct, getProducts, modifyProduct };
+const deleteProduct = (req, res) => {
+  Product.findByIdAndDelete({ _id: req.params.productId })
+    .exec()
+    .then(response => {
+      if (response) {
+        res.status(201).json({
+          message: 'Product was deleted!',
+          data: response
+        });
+      }
+      else {
+        res.status(404).json({
+          error: 'Product not found!'
+        });
+      }
+    })
+    .catch(() => {
+      res.status(500).json({
+        error: 'Product could not be deleted!'
+      });
+    });
+};
+
+module.exports = { postProduct, getProducts, modifyProduct, deleteProduct };

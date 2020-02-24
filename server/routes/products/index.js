@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { postProduct, getProducts, modifyProduct } = require('./controller');
+const { postProduct, getProducts, modifyProduct, deleteProduct } = require('./controller');
 const checkToken = require('../../middleware/check-token');
 
 router
@@ -10,6 +10,7 @@ router
 
 router
   .route('/:productId')
-  .patch(checkToken, modifyProduct);
-  
+  .patch(checkToken, modifyProduct)
+  .delete(checkToken, deleteProduct);
+
 module.exports = router;
