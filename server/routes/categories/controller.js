@@ -5,7 +5,7 @@ const postCategories = (req, res) => {
     .exec()
     .then(response => {
       if (response.length > 0) {
-        res.status(409).json({
+        res.status(400).json({
           error: 'Category name already exists!'
         });
       }
@@ -27,10 +27,11 @@ const postCategories = (req, res) => {
         res.status(400).json({
           error: err.errors.description.message
         });
+      } else {
+        res.status(500).json({
+          error: 'Category could not be created!'
+        });
       }
-      res.status(500).json({
-        error: 'Category could not be created!'
-      });
     });
 };
 
@@ -60,16 +61,13 @@ const getCategories = (req, res) => {
 const deleteCategory = (req, res) => {
   //add validation for categories being used in products
   Category.findByIdAndDelete({ _id: req.params.categoryId })
+    .select('_id name description')
     .exec()
     .then(response => {
       if (response) {
         res.status(201).json({
           message: 'Category was deleted!',
-          data: {
-            _id: response.id,
-            name: response.name,
-            description: response.description
-          }
+          data: response
         });
       } else {
         res.status(404).json({
@@ -79,7 +77,6 @@ const deleteCategory = (req, res) => {
     })
     .catch(() => {
       res.status(500).json({
-        // check this status code.
         error: 'Category could not be deleted!'
       });
     });
@@ -88,6 +85,7 @@ const deleteCategory = (req, res) => {
 const getCategoryById = (req, res, next) => {
   if (req.body.category) {
     Category.findById(req.body.category)
+      .select('_id name description')
       .exec()
       .then(category => {
         if (!category) {
@@ -95,11 +93,7 @@ const getCategoryById = (req, res, next) => {
             error: 'Category not found!'
           });
         } else {
-          req.body.fullCategory = {
-            _id: category._id,
-            name: category.name,
-            description: category.description
-          };
+          req.body.fullCategory = category;
           next();
         }
       })

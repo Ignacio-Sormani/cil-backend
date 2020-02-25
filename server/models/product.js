@@ -6,7 +6,7 @@ const productSchema = mongoose.Schema({
     required: true
   },
   description: {
-    type: String, 
+    type: String,
     required: true
   },
   category: {
@@ -25,6 +25,10 @@ const productSchema = mongoose.Schema({
   isActive: {
     type: Boolean,
     default: true
+  },
+  image: {
+    type: String,
+    required: true
   }
 });
 

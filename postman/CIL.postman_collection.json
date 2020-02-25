@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b1179f24-0028-41f3-a068-48ba2c648b4e",
+		"_postman_id": "d1a01c15-c7d9-407e-af91-bd66572c2055",
 		"name": "CIL",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -16,7 +16,7 @@
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"value": "application/json",
+								"value": "multipart/form-data",
 								"type": "text"
 							},
 							{
@@ -26,8 +26,44 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Guitarra\",\n\t\"description\": \"Una gran guitarra\",\n\t\"category\": \"5e448ff35d510c2c8c52a5ec\",\n\t\"price\": 150,\n\t\"stock\": 1000,\n\t\"isActive\": true\n}",
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Usuario/Downloads/índice.jpg"
+								},
+								{
+									"key": "name",
+									"value": "Guitarra",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Una gran guitarra",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "5e448ff35d510c2c8c52a5ec",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "1500",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "isActive",
+									"value": "true",
+									"type": "text"
+								}
+							],
 							"options": {
 								"raw": {
 									"language": "json"
@@ -66,8 +102,21 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Guitarra\",\n\t\"description\": \"Una gran guitarra\",\n\t\"category\": \"5e448ff35d510c2c8c52a5ec\",\n\t\"price\": 150,\n\t\"stock\": 1000,\n\t\"isActive\": true\n}",
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Key",
+									"value": "Value",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "Key",
+									"value": "Value",
+									"type": "text",
+									"disabled": true
+								}
+							],
 							"options": {
 								"raw": {
 									"language": "json"
@@ -89,7 +138,7 @@
 							"variable": [
 								{
 									"key": "productId",
-									"value": "5e4b5709a1a41b2c68e9807b"
+									"value": "5e54ecd15c8fa8440c094773"
 								}
 							]
 						}
