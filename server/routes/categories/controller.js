@@ -1,12 +1,12 @@
-const Category = require("../../models/category");
+const Category = require('../../models/category');
 
 const postCategories = (req, res) => {
   Category.find({ name: req.body.name })
     .exec()
     .then(response => {
       if (response.length > 0) {
-        res.status(409).json({
-          error: "Category name already exists!"
+        res.status(400).json({
+          error: 'Category name already exists!'
         });
       }
       const category = new Category(req.body);
@@ -14,7 +14,7 @@ const postCategories = (req, res) => {
     })
     .then(response => {
       res.status(201).json({
-        message: "Category was created",
+        message: 'Category was created',
         data: {
           _id: response.id,
           name: response.name,
@@ -27,32 +27,33 @@ const postCategories = (req, res) => {
         res.status(400).json({
           error: err.errors.description.message
         });
+      } else {
+        res.status(500).json({
+          error: 'Category could not be created!'
+        });
       }
-      res.status(500).json({
-        error: "Category could not be created!"
-      });
     });
 };
 
 const getCategories = (req, res) => {
   Category.find()
-    .select("_id name description")
+    .select('_id name description')
     .exec()
     .then(response => {
       if (response.length > 0) {
         res.status(200).json({
-          message: "Categories were retrieved!",
+          message: 'Categories were retrieved!',
           data: response
         });
       } else {
         res.status(404).json({
-          error: "No categories found!"
+          error: 'No categories found!'
         });
       }
     })
     .catch(() => {
       res.status(500).json({
-        error: "Categories could not be retrieved!"
+        error: 'Categories could not be retrieved!'
       });
     });
 };
@@ -60,29 +61,55 @@ const getCategories = (req, res) => {
 const deleteCategory = (req, res) => {
   //add validation for categories being used in products
   Category.findByIdAndDelete({ _id: req.params.categoryId })
+    .select('_id name description')
     .exec()
     .then(response => {
       if (response) {
         res.status(201).json({
-          message: "Category was deleted!",
-          data: {
-            _id: response.id,
-            name: response.name,
-            description: response.description
-          }
+          message: 'Category was deleted!',
+          data: response
         });
       } else {
         res.status(404).json({
-          error: "Category not found!"
+          error: 'Category not found!'
         });
       }
     })
     .catch(() => {
       res.status(500).json({
-        // check this status code.
-        error: "Category could not be deleted!"
+        error: 'Category could not be deleted!'
       });
     });
 };
 
-module.exports = { postCategories, getCategories, deleteCategory };
+const getCategoryById = (req, res, next) => {
+  if (req.body.category) {
+    Category.findById(req.body.category)
+      .select('_id name description')
+      .exec()
+      .then(category => {
+        if (!category) {
+          res.status(404).json({
+            error: 'Category not found!'
+          });
+        } else {
+          req.body.fullCategory = category;
+          next();
+        }
+      })
+      .catch(() => {
+        res.status(500).json({
+          error: 'Category could not be found!'
+        });
+      });
+  } else {
+    next();
+  }
+};
+
+module.exports = {
+  postCategories,
+  getCategories,
+  deleteCategory,
+  getCategoryById
+};

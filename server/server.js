@@ -23,6 +23,7 @@ app.use((req, res, next) => {
 });
 
 mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
 mongoose.connect(
   'mongodb+srv://CIL-ADMIN:cil2019@cil-cluster-ldtk8.gcp.mongodb.net/database?retryWrites=true&w=majority',
   {
