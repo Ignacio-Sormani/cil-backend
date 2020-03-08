@@ -47,7 +47,7 @@ const login = (req, res) => {
   User.findOne({ email: req.body.email })
     .exec()
     .then(response => {
-      if (response.length === 0) {
+      if (!response) {
         return res.status(400).json({
           error: 'Authentication failed!'
           // we send this message so we dont give real information to the person trying to login
@@ -78,9 +78,9 @@ const login = (req, res) => {
               message: 'Authentication was successful!',
               data: {
                 fullName: response.fullName,
-                email: response.email
-              },
-              token
+                email: response.email,
+                token
+              }
             });
           }
           res.status(400).json({
