@@ -9,11 +9,12 @@ const {
 } = require('./controller');
 const checkToken = require('../../middleware/check-token');
 const { getCategoryById } = require('../categories/controller');
-const { upload } = require('../../middleware/upload-image');
+// const { upload } = require('../../middleware/upload-image');
 
 router
   .route('/')
-  .post(checkToken, upload, getCategoryById, postProduct)
+  // .post(checkToken, upload, getCategoryById, postProduct)
+  .post(checkToken, postProduct)
   .get(checkToken, getProducts);
 
 router

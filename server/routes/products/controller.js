@@ -25,38 +25,64 @@ const getProducts = (req, res) => {
 };
 
 const postProduct = (req, res) => {
-  if (req.file) {
-    const product = new Product({
-      ...req.body,
-      image: '/' + req.file.destination + '/' + req.file.filename
-    });
-    product
-      .save()
-      .then(response => {
-        res.status(201).json({
-          message: 'Product was created!',
-          data: {
-            _id: response.id,
-            name: response.name,
-            description: response.description,
-            category: req.body.fullCategory,
-            price: response.price,
-            stock: response.stock,
-            isActive: response.isActive,
-            image: response.image
-          }
-        });
-      })
-      .catch(() => {
-        res.status(500).json({
-          error: 'Product could not be created!'
-        });
+  const product = new Product({
+    ...req.body,
+    image: '/public/uploads/image-1583805580380.png'
+  });
+  product
+    .save()
+    .then(response => {
+      res.status(201).json({
+        message: 'Product was created!',
+        data: {
+          _id: response.id,
+          name: response.name,
+          description: response.description,
+          category: req.body.category,
+          price: response.price,
+          stock: response.stock,
+          isActive: response.isActive,
+          image: response.image
+        }
       });
-  } else {
-    res.status(500).json({
-      error: 'Product image could not be saved!'
+    })
+    .catch(() => {
+      res.status(500).json({
+        error: 'Product could not be created!'
+      });
     });
-  }
+  // if (req.file) {
+  //   const product = new Product({
+  //     ...req.body,
+  //     image: '/' + req.file.destination + '/' + req.file.filename
+  //   });
+  //   product
+  //     .save()
+  //     .then(response => {
+  //       res.status(201).json({
+  //         message: 'Product was created!',
+  //         data: {
+  //           _id: response.id,
+  //           name: response.name,
+  //           description: response.description,
+  //           category: req.body.fullCategory,
+  //           price: response.price,
+  //           stock: response.stock,
+  //           isActive: response.isActive,
+  //           image: response.image
+  //         }
+  //       });
+  //     })
+  //     .catch(() => {
+  //       res.status(500).json({
+  //         error: 'Product could not be created!'
+  //       });
+  //     });
+  // } else {
+  //   res.status(500).json({
+  //     error: 'Product image could not be saved!'
+  //   });
+  // }
 };
 
 const modifyProduct = (req, res) => {
