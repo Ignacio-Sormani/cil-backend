@@ -5,8 +5,9 @@ const categories = require('./categories');
 const products = require('./products');
 
 router.use('/public/uploads', express.static('public/uploads'));
-router.use('/auth', auth);
-router.use('/categories', categories);
-router.use('/products', products);
+router.use('/', express.static('public/build'));
+router.use('/api/auth', auth);
+router.use('/api/categories', categories);
+router.use('/api/products', products);
 
 module.exports = router;
