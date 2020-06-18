@@ -71,7 +71,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:4000/products",
+							"raw": "http://localhost:4000/api/products",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -124,7 +124,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:4000/products/:productId/",
+							"raw": "http://localhost:4000/api/products/:productId/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -157,7 +157,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:4000/products/",
+							"raw": "http://localhost:4000/api/products/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -183,7 +183,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:4000/products/:productId/",
+							"raw": "http://localhost:4000/api/products/:productId/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -210,7 +210,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/products/active",
+							"raw": "http://localhost:4000/api/products/active",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -257,7 +257,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:4000/categories",
+							"raw": "http://localhost:4000/api/categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -283,7 +283,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:4000/categories/",
+							"raw": "http://localhost:4000/api/categories/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -324,7 +324,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:4000/categories/:categoryId",
+							"raw": "http://localhost:4000/api/categories/:categoryId",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -364,10 +364,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"fullName\": \"Administrador\",\n\t\"email\": \"admin@gmail.com\",\n\t\"password\": \"admin\"\n}"
+							"raw": "{\n\t\"fullName\": \"Administrador\",\n\t\"email\": \"admin@admin.com\",\n\t\"password\": \"admin\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:4000/auth",
+							"raw": "http://localhost:4000/api/auth",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -407,10 +407,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"admin@gmail.com\",\n\t\"password\": \"admin\"\n}"
+							"raw": "{\n\t\"email\": \"admin@admin.com\",\n\t\"password\": \"admin\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:4000/auth/login",
+							"raw": "http://localhost:4000/api/auth/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
